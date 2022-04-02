@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import './Expenses.css';
-import ExpenseItem from "./ExpenseItem";
+//import ExpenseItem from "./ExpenseItem";
 import Card from "../UI/Card";
 import ExpensesFilter from './ExpensesFilter';
+import ExpensesList from './ExpensesList';
 
 //function Expenses(props){
 const Expenses = (props) => {
@@ -22,28 +23,12 @@ const Expenses = (props) => {
         return expense.date.getFullYear().toString()  === filteredYear;
     });
 
-    //alterative more clean readable with lean JSX: by moving logic outside of returned component
-    let expensesContent = <p>No expenses found.</p>;
-
-    if(filteredExpenses.length > 0){
-        expensesContent = filteredExpenses.map(aa => (
-            <ExpenseItem 
-                key={aa.id}
-                title={aa.title} 
-                amount={aa.amount} 
-                date={aa.date} 
-            />
-        ))
-    }
-
-
     return (
         <div>
             <Card className='expenses'>
 
                 <ExpensesFilter selected={filteredYear} onChangeFilter={filterChangeHandler} />
-
-                {expensesContent}
+                <ExpensesList items={filteredExpenses} />
 
             </Card>
         </div>
